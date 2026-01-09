@@ -44,3 +44,15 @@
 - `git push -u origin main` – enviar para GitHub.
 - `git branch -M main` – renomear branch para main.
 - `git log --oneline` – ver histórico commits.
+
+## Python Virtual Environments (venv)
+- `python3 -m venv venv` – criar ambiente virtual.
+- `source venv/bin/activate` – ativar ambiente (prompt muda).
+- `deactivate` – sair do ambiente.
+
+## Pacotes Python (pip)
+- `pip install nome_pacote` – instalar biblioteca.
+- `pip install -r requirements.txt` – instalar lista de dependências.
+
+## Controlar Processos
+- `Ctrl+C` – parar servidor ou script que está a correr.
