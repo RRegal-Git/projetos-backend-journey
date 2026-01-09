@@ -22,3 +22,12 @@
   - Bíblia + Diário profissionais.
 **Tempo:** ~2h30 (GitHub levou mais tempo).
 **Estado:** Linux + Python + GitHub ✅
+
+## 2026-01-09 – Dia 3 (16h-16h50)
+- **Projeto1**: API Flask funcional (endpoints `/` e `/hello`).
+- Virtualenv criado (`python3 -m venv venv`).
+- GitHub: https://github.com/RRegal-Git/projeto1_flask
+- **Tempo**: 50min
+**Estado**: API REST Python ✅ Portfólio +1 projeto
+
+
