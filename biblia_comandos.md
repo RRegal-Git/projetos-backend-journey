@@ -1,5 +1,10 @@
 # Bíblia de Comandos Linux
 
+## Essenciais (sempre usar)
+- `Tab` – autocomplete.
+- `↑↓` – histórico comandos.
+- `clear` – limpar terminal.
+
 ## Navegação
 - `cd <pasta>` – mudar de diretório.
 - `cd ~` – ir para o diretório home do utilizador.
@@ -16,6 +21,8 @@
 
 ## Ver ficheiros
 - `cat ficheiro` – mostrar conteúdo no terminal.
+- `head -10 ficheiro` – ver primeiras 10 linhas.
+- `tail -10 ficheiro` – ver últimas 10 linhas.
 
 ## Copiar, mover, apagar
 - `cp origem destino` – copiar ficheiro.
@@ -27,3 +34,13 @@
 
 ## Editar ficheiros (terminal)
 - `echo "texto" >> ficheiro` – adicionar texto ao final.
+
+## Git básico
+- `git init` – iniciar repositório local.
+- `git status` – ver estado dos ficheiros.
+- `git add .` – adicionar todos ficheiros.
+- `git commit -m "msg"` – salvar snapshot.
+- `git remote add origin URL` – ligar ao GitHub.
+- `git push -u origin main` – enviar para GitHub.
+- `git branch -M main` – renomear branch para main.
+- `git log --oneline` – ver histórico commits.
