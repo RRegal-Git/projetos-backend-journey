@@ -56,3 +56,19 @@
 
 ## Controlar Processos
 - `Ctrl+C` – parar servidor ou script que está a correr.
+
+## Git ignore (repo limpo)
+- `.gitignore` – ficheiro que diz ao Git quais pastas/ficheiros **não** devem ser versionados (ex.: `venv/`, `__pycache__/`). 
+- `cat .gitignore` – ver conteúdo do `.gitignore` no terminal. 
+
+## Remover ficheiros já versionados (sem apagar local)
+- `git rm -r --cached venv` – deixa de versionar a pasta `venv/` (remove do “índice” do Git), mas mantém a pasta no teu computador. 
+- Nota: adicionar ao `.gitignore` não remove o que já estava versionado; para isso usa-se `git rm --cached`. 
+
+## Flask (melhorias de API)
+- `/health` – endpoint simples para verificar se a API está viva (útil para monitorização e testes rápidos). 
+- `@app.errorhandler(404)` – define um handler para devolver erro 404 em JSON (em vez de HTML), tornando a API consistente. 
+
+## Testar API no terminal
+- `curl -i http://127.0.0.1:5000/health` – testa a rota de saúde e mostra headers + status code. 
+- `curl -i http://127.0.0.1:5000/rota_inventada` – confirma 404 a devolver JSON. 

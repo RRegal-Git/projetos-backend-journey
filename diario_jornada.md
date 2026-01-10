@@ -30,4 +30,12 @@
 - **Tempo**: 50min
 **Estado**: API REST Python ✅ Portfólio +1 projeto
 
+## 2026-01-10 – Dia 4 (limpeza repo + melhorias API)
+- No projeto `projeto1_flask`, removi a pasta `venv/` do GitHub (era lixo de ambiente local) e adicionei `.gitignore` para impedir que volte a ser versionada.
+- Usei `git rm -r --cached venv` para o Git “esquecer” a pasta no repositório sem apagar a pasta no meu computador. 
+- Adicionei endpoint `GET /health` para verificação rápida do estado da API (retorna JSON com status). 
+- Configurei `@app.errorhandler(404)` para devolver erros 404 em JSON (mais consistente para APIs).
+- Testei com `curl -i` e confirmei: `/health` devolve 200 OK e uma rota inventada devolve 404 em JSON. 
+- Fiz commit(s) e push para garantir que o GitHub fica com a versão “limpa” do projeto. 
+
 
