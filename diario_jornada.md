@@ -38,4 +38,9 @@
 - Testei com `curl -i` e confirmei: `/health` devolve 200 OK e uma rota inventada devolve 404 em JSON. 
 - Fiz commit(s) e push para garantir que o GitHub fica com a versão “limpa” do projeto. 
 
-
+## 2026-01-11 – Dia 5 (30 min - Domingo)
+- Aprendi a diferença entre **GET** (ler) e **POST** (enviar).
+- Criei endpoint `/echo` no Flask para receber e processar JSON.
+- Testei com `curl -X POST` enviando dados reais (`nome`, `nivel`).
+- **Erro resolvido:** 415 Unsupported Media Type (tinha typo no `Content-Type`).
+- **Estado:** API já sabe conversar (recebe e responde)! ✅

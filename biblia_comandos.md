@@ -72,3 +72,8 @@
 ## Testar API no terminal
 - `curl -i http://127.0.0.1:5000/health` – testa a rota de saúde e mostra headers + status code. 
 - `curl -i http://127.0.0.1:5000/rota_inventada` – confirma 404 a devolver JSON. 
+## API & HTTP (Métodos)
+- `GET` – pedir dados (padrão do browser/curl).
+- `POST` – enviar dados para o servidor (criar/processar).
+- `curl -X POST -H "Content-Type: application/json" -d '{"chave":"valor"}' URL` – enviar JSON via terminal.
+- `415 Unsupported Media Type` – erro comum quando o cabeçalho Content-Type está mal escrito ou em falta.
