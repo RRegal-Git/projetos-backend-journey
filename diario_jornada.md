@@ -44,3 +44,11 @@
 - Testei com `curl -X POST` enviando dados reais (`nome`, `nivel`).
 - **Erro resolvido:** 415 Unsupported Media Type (tinha typo no `Content-Type`).
 - **Estado:** API já sabe conversar (recebe e responde)! ✅
+
+## 2026-01-12 – Dia 6 (Ferramentas Profissionais)
+- Instalei Postman no Windows (ligado ao WSL).
+- Criei Workspace "Jornada Backend" e Collection "Projeto 1".
+- Testei endpoint GET /health (Sucesso 200 OK).
+- Testei endpoint POST /echo enviando JSON (body).
+- Aprendi na prática o erro 405 (Method Not Allowed) ao tentar fazer GET num endpoint POST.
+- **Estado:** Tenho um ambiente de testes profissional pronto para APIs mais complexas! 🚀
