@@ -77,3 +77,9 @@
 - `POST` – enviar dados para o servidor (criar/processar).
 - `curl -X POST -H "Content-Type: application/json" -d '{"chave":"valor"}' URL` – enviar JSON via terminal.
 - `415 Unsupported Media Type` – erro comum quando o cabeçalho Content-Type está mal escrito ou em falta.
+
+### Git - Credenciais
+- **Guardar password/token para não pedir sempre:**
+  `git config --global credential.helper store`
+  *(Pede uma última vez no próximo push e depois guarda para sempre)*
+
