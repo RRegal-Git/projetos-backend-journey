@@ -52,3 +52,16 @@
 - Testei endpoint POST /echo enviando JSON (body).
 - Aprendi na prática o erro 405 (Method Not Allowed) ao tentar fazer GET num endpoint POST.
 - **Estado:** Tenho um ambiente de testes profissional pronto para APIs mais complexas! 🚀
+
+## 2026-01-13 – Dia 7 (Memória RAM e CRUD Básico)
+- **Conceito Chave:** Persistência de Dados em Memória.
+- Criei uma lista global `tarefas = []` no `app.py` para servir de base de dados temporária.
+- Implementei **GET /tarefas**: Devolve a lista completa de tarefas (JSON).
+- Implementei **POST /tarefas**: Recebe um JSON, adiciona à lista `tarefas` (append) e devolve 201 Created.
+- Testei o fluxo completo no Postman:
+  1. GET inicial (lista vazia `[]`).
+  2. POST (adicionar Tarefa 1).
+  3. POST (adicionar Tarefa 2).
+  4. GET final (lista com 2 itens).
+- **Aprendizagem:** Entendi que os dados persistem enquanto o servidor corre, mas perdem-se ao reiniciar (RAM é volátil).
+- **Estado:** API já guarda dados! (Create + Read feitos). ✅
