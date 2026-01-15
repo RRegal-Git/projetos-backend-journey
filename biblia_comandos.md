@@ -1,85 +1,61 @@
-# Bíblia de Comandos Linux
+# Bíblia de Comandos Linux & Backend
 
-## Essenciais (sempre usar)
-- `Tab` – autocomplete.
-- `↑↓` – histórico comandos.
-- `clear` – limpar terminal.
-
-## Navegação
-- `cd <pasta>` – mudar de diretório.
-- `cd ~` – ir para o diretório home do utilizador.
-- `pwd` – mostrar o diretório atual.
-
-## Pastas e ficheiros
-- `mkdir <nome>` – criar diretório.
-- `ls` – listar conteúdo do diretório atual.
-- `touch <nome>` – criar ficheiro vazio (ou atualizar timestamp).
-- `code .` – abrir VS Code na pasta atual (quando o PATH estiver configurado).
-
-## WSL (Windows + Linux)
-- `wsl` – abrir Ubuntu a partir do PowerShell Windows.
-
-## Ver ficheiros
-- `cat ficheiro` – mostrar conteúdo no terminal.
-- `head -10 ficheiro` – ver primeiras 10 linhas.
-- `tail -10 ficheiro` – ver últimas 10 linhas.
-
-## Copiar, mover, apagar
-- `cp origem destino` – copiar ficheiro.
-- `mv origem destino` – mover ou renomear ficheiro.
-- `rm ficheiro` – apagar ficheiro (sem lixo!).
-
-## Python no terminal
-- `python3 ficheiro.py` – correr script Python.
-
-## Editar ficheiros (terminal)
-- `echo "texto" >> ficheiro` – adicionar texto ao final.
-
-## Git básico
-- `git init` – iniciar repositório local.
-- `git status` – ver estado dos ficheiros.
-- `git add .` – adicionar todos ficheiros.
-- `git commit -m "msg"` – salvar snapshot.
-- `git remote add origin URL` – ligar ao GitHub.
-- `git push -u origin main` – enviar para GitHub.
-- `git branch -M main` – renomear branch para main.
-- `git log --oneline` – ver histórico commits.
-
-## Python Virtual Environments (venv)
-- `python3 -m venv venv` – criar ambiente virtual.
-- `source venv/bin/activate` – ativar ambiente (prompt muda).
-- `deactivate` – sair do ambiente.
-
-## Pacotes Python (pip)
-- `pip install nome_pacote` – instalar biblioteca.
-- `pip install -r requirements.txt` – instalar lista de dependências.
-
-## Controlar Processos
+## ⚡ Essenciais
+- `Tab` – autocomplete (completa nomes de ficheiros/comandos).
+- `↑↓` – histórico de comandos usados anteriormente.
+- `clear` – limpar o ecrã do terminal.
 - `Ctrl+C` – parar servidor ou script que está a correr.
 
-## Git ignore (repo limpo)
-- `.gitignore` – ficheiro que diz ao Git quais pastas/ficheiros **não** devem ser versionados (ex.: `venv/`, `__pycache__/`). 
-- `cat .gitignore` – ver conteúdo do `.gitignore` no terminal. 
+## 📂 Navegação
+- `cd <pasta>` – mudar de diretório.
+- `cd ~` – ir para o diretório home (raiz do utilizador).
+- `pwd` – mostrar o caminho da pasta atual.
+- `ls` – listar ficheiros da pasta atual.
+- `wsl` – abrir Ubuntu a partir do PowerShell Windows.
 
-## Remover ficheiros já versionados (sem apagar local)
-- `git rm -r --cached venv` – deixa de versionar a pasta `venv/` (remove do “índice” do Git), mas mantém a pasta no teu computador. 
-- Nota: adicionar ao `.gitignore` não remove o que já estava versionado; para isso usa-se `git rm --cached`. 
+## 📄 Gestão de Ficheiros
+- `mkdir <nome>` – criar diretório (pasta).
+- `touch <nome>` – criar ficheiro vazio.
+- `code .` – abrir VS Code na pasta atual.
+- `cat ficheiro` – ler conteúdo no terminal.
+- `echo "texto" >> ficheiro` – adicionar texto ao final de um ficheiro.
+- `cp origem destino` – copiar ficheiro.
+- `mv origem destino` – mover ou renomear ficheiro.
+- `rm ficheiro` – apagar ficheiro (cuidado: não vai para a reciclagem!).
 
-## Flask (melhorias de API)
-- `/health` – endpoint simples para verificar se a API está viva (útil para monitorização e testes rápidos). 
-- `@app.errorhandler(404)` – define um handler para devolver erro 404 em JSON (em vez de HTML), tornando a API consistente. 
+## 🐍 Python & Ambiente
+- `python3 ficheiro.py` – correr script Python.
+- `python3 -m venv venv` – criar ambiente virtual.
+- `source venv/bin/activate` – ativar ambiente (essencial!).
+- `deactivate` – sair do ambiente.
 
-## Testar API no terminal
-- `curl -i http://127.0.0.1:5000/health` – testa a rota de saúde e mostra headers + status code. 
-- `curl -i http://127.0.0.1:5000/rota_inventada` – confirma 404 a devolver JSON. 
-## API & HTTP (Métodos)
-- `GET` – pedir dados (padrão do browser/curl).
-- `POST` – enviar dados para o servidor (criar/processar).
-- `curl -X POST -H "Content-Type: application/json" -d '{"chave":"valor"}' URL` – enviar JSON via terminal.
-- `415 Unsupported Media Type` – erro comum quando o cabeçalho Content-Type está mal escrito ou em falta.
+## 📦 Pacotes (Pip)
+- `pip install nome_pacote` – instalar biblioteca (ex: Flask).
+- `pip freeze > requirements.txt` – gerar lista de dependências instaladas ("congelar" versões).
+- `pip install -r requirements.txt` – instalar dependências a partir de um ficheiro.
 
-### Git - Credenciais
-- **Guardar password/token para não pedir sempre:**
-  `git config --global credential.helper store`
-  *(Pede uma última vez no próximo push e depois guarda para sempre)*
+## 🐙 Git & GitHub
+- `git init` – iniciar repositório novo.
+- `git status` – ver o que mudou.
+- `git add .` – preparar tudo para guardar.
+- `git commit -m "msg"` – gravar snapshot (histórico).
+- `git push` – enviar alterações para o GitHub.
+- `git log --oneline` – ver histórico de commits resumido.
+- `.gitignore` – ficheiro que lista o que o Git deve ignorar (ex: `venv/`).
+- `git rm -r --cached pasta` – parar de versionar uma pasta sem a apagar do PC.
+- `git config --global credential.helper store` – guardar password/token para sempre.
 
+## 🌐 API & HTTP (Conceitos)
+- `GET` – Ler dados (Safe).
+- `POST` – Criar dados novos.
+- `PUT` – Atualizar dados existentes (substitui tudo).
+- `DELETE` – Apagar dados.
+- **Códigos Comuns:**
+  - `200 OK` (Sucesso).
+  - `201 Created` (Criado com sucesso).
+  - `404 Not Found` (Não encontrado).
+  - `415 Unsupported Media Type` (Falta header Content-Type: application/json).
+
+## 🧪 Testes (Curl & Postman)
+- `curl -i URL` – teste rápido GET no terminal.
+- `/health` – rota comum para verificar se API está viva.

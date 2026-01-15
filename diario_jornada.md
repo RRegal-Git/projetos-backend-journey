@@ -65,3 +65,24 @@
   4. GET final (lista com 2 itens).
 - **Aprendizagem:** Entendi que os dados persistem enquanto o servidor corre, mas perdem-se ao reiniciar (RAM é volátil).
 - **Estado:** API já guarda dados! (Create + Read feitos). ✅
+
+## 2026-01-15 – Dia 8 (CRUD: Read by ID)
+- **Objetivo:** Criar endpoint para ler apenas UMA tarefa específica, usando o seu ID.
+- Aprendi o conceito de **Path Parameters** no Flask: `<int:id>`.
+- Implementei a rota `GET /tarefas/<int:id>`.
+- Lógica criada: Percorrer a lista `tarefas` (loop for), encontrar o ID correspondente e devolver esse objeto.
+- Tratamento de erro: Se o loop terminar sem encontrar o ID, retorna 404 Not Found.
+- **Depuração:** Enfrentei um erro 404 inicial, mas resolvi verificando os tipos de dados (int vs string) e reiniciando o servidor corretamente.
+- **Estado:** CRUD quase completo (Falta Update e Delete). ✅
+
+## 2026-01-15 – Dia 9 (CRUD Completo e Preparação Docker)
+- **Implementação Final do CRUD:**
+  - Adicionei endpoint `PUT /tarefas/<id>` para atualizar tarefas existentes.
+  - Adicionei endpoint `DELETE /tarefas/<id>` para remover tarefas.
+  - Aprendi a filtrar listas em Python (`[t for t in tarefas if ...]`) para remover itens de forma segura.
+- **Teste de Fogo:** Validei o ciclo de vida completo no Postman (Criar -> Ler -> Atualizar -> Apagar).
+- **Gestão de Dependências:**
+  - Usei `pip freeze > requirements.txt` para gerar a lista de bibliotecas instaladas.
+  - Entendi que isto "congela" as versões (ex: `Flask==3.0.3`) para garantir que o projeto funciona em qualquer lugar.
+- **Próximos Passos:** Dockerizar a API! 🐳
+
