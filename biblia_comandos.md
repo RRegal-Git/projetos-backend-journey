@@ -164,3 +164,88 @@ PRÓXIMOS NÍVEIS
 • Networks: comunicação entre contentores
 • Docker Hub: partilhar imagens
 • Gunicorn: servidor WSGI para produção
+
+
+═══════════════════════════════════════════════════════════════
+🐳 DOCKER COMPOSE - ORQUESTRAÇÃO
+═══════════════════════════════════════════════════════════════
+
+CONCEITO
+─────────────────────────────────────────────────────────────
+Ferramenta para definir e correr aplicações multi-contentor
+usando ficheiros YAML. Um comando gere todo o ciclo de vida.
+
+
+ESTRUTURA docker-compose.yml
+─────────────────────────────────────────────────────────────
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: projeto1-flask-web
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+    restart: unless-stopped
+
+
+COMANDOS ESSENCIAIS
+─────────────────────────────────────────────────────────────
+docker compose up              Build + criar + iniciar (foreground)
+docker compose up -d           Correr em background (detached)
+docker compose down            Parar e remover contentores
+docker compose logs -f         Ver logs em tempo real
+docker compose ps              Ver status dos serviços
+docker compose up --build      Rebuild após mudanças no código
+docker compose restart         Reiniciar serviços
+docker compose stop            Parar sem remover
+
+
+ESTRUTURA .dockerignore
+─────────────────────────────────────────────────────────────
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+docker-compose.yml
+
+
+VANTAGENS
+─────────────────────────────────────────────────────────────
+• Um comando vs múltiplos (docker run, build, etc)
+• Configuração versionada (YAML no Git)
+• Networks automáticas entre serviços
+• Fácil adicionar serviços (DB, Redis, etc)
+• Ambiente reproduzível em qualquer máquina
+
+
+COMPARAÇÃO: docker run vs docker compose
+─────────────────────────────────────────────────────────────
+ANTES (docker run):
+  docker build -t projeto1-flask .
+  docker run -d -p 5000:5000 --name minha-api projeto1-flask
+  docker ps
+  docker logs minha-api
+
+AGORA (docker compose):
+  docker compose up
+
+
+PRÓXIMOS PASSOS
+─────────────────────────────────────────────────────────────
+• Adicionar PostgreSQL ao docker-compose.yml
+• Configurar volumes para persistência
+• Environment variables por ficheiro .env
+• Health checks nos serviços

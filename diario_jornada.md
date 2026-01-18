@@ -259,6 +259,44 @@ Próximas Metas:
 • Deploy (Render/Railway)
 
 
+19/01/2026 – DIA 11 | Docker Compose - Orquestração
+─────────────────────────────────────────────────────────────
+Duração: 35min (23h20-23h55)
+
+Objetivo:
+Simplificar gestão de contentores com Docker Compose
+
+Implementação:
+• Criado .dockerignore para otimizar builds
+  - Exclui: venv/, __pycache__/, .git/, .vscode/
+  - Resultado: imagem mais leve e builds mais rápidos
+  
+• Criado docker-compose.yml:
+  - Serviço 'web' com build local
+  - Port mapping 5000:5000
+  - Container name personalizado
+  - Restart policy: unless-stopped
+  - Network criada automaticamente
+
+Comandos Dominados:
+• docker compose up → Build + start tudo
+• docker compose up -d → Background mode
+• docker compose down → Parar e remover contentores
+• docker compose logs -f → Ver logs em tempo real
+• docker compose ps → Ver status dos serviços
+• docker compose up --build → Rebuild após mudanças
+
+Resolução de Problemas:
+• Docker não reconhecido no WSL após reinício
+• Solução: wsl --shutdown + restart terminal
+
+Vantagem Principal:
+Substituir 4+ comandos docker por apenas: docker compose up
+
+Estado: ✅ Orquestração funcional | Preparado para multi-contentores
+
+
+
 ═══════════════════════════════════════════════════════════════
 FIM DO DIÁRIO
 ═══════════════════════════════════════════════════════════════
