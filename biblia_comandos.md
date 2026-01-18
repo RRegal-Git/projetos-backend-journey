@@ -59,3 +59,108 @@
 ## 🧪 Testes (Curl & Postman)
 - `curl -i URL` – teste rápido GET no terminal.
 - `/health` – rota comum para verificar se API está viva.
+
+
+═══════════════════════════════════════════════════════════════
+DOCKER - CONTAINERIZAÇÃO
+═══════════════════════════════════════════════════════════════
+
+DOCKERFILE ESTRUTURA BASE
+─────────────────────────────────────────────────────────────
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py .
+ENV FLASK_APP=app.py
+EXPOSE 5000
+CMD ["python", "app.py"]
+
+
+CONCEITOS ESSENCIAIS
+─────────────────────────────────────────────────────────────
+• Imagem: Template read-only com o código + dependências
+• Contentor: Instância executável da imagem (isolada e efémera)
+• Port mapping: -p 5000:5000 liga porta do host à porta do contentor
+• Detached mode: -d corre em background, liberta o terminal
+
+
+COMANDOS FUNDAMENTAIS
+─────────────────────────────────────────────────────────────
+Build da imagem:
+  docker build -t nome-imagem .
+
+Correr contentor (foreground):
+  docker run -p 5000:5000 nome-imagem
+
+Correr em background:
+  docker run -d -p 5000:5000 --name meu-contentor nome-imagem
+
+Ver contentores ativos:
+  docker ps
+
+Ver todos os contentores:
+  docker ps -a
+
+Ver logs:
+  docker logs <container_id>
+
+Parar contentor:
+  docker stop <container_id>
+
+Remover contentor:
+  docker rm <container_id>
+
+Remover imagem:
+  docker rmi <image_id>
+
+
+FLASK + DOCKER - CONFIGURAÇÃO CRÍTICA
+─────────────────────────────────────────────────────────────
+• app.run(host='0.0.0.0') obrigatório para acesso fora do contentor
+• debug=True apenas em desenvolvimento (warnings sobre segurança)
+• EXPOSE 5000 documenta a porta (não a abre automaticamente)
+
+
+BOAS PRÁTICAS APLICADAS
+─────────────────────────────────────────────────────────────
+• Imagem slim: reduz tamanho e superfície de ataque
+• --no-cache-dir no pip: reduz tamanho das camadas
+• .dockerignore: excluir venv, __pycache__, .git
+• WORKDIR absoluto: /app para clareza
+• COPY requirements.txt primeiro: aproveita cache de layers
+
+
+TROUBLESHOOTING WSL
+─────────────────────────────────────────────────────────────
+Problema: "docker: command not found" no WSL
+
+Solução:
+1. Abrir Docker Desktop no Windows
+2. Settings → Resources → WSL Integration
+3. Ativar "Enable integration with my default WSL distro"
+4. Ativar toggle da distro Ubuntu
+5. Apply & restart
+6. No PowerShell: wsl --shutdown
+7. Reabrir WSL: wsl
+
+
+WORKFLOW TÍPICO
+─────────────────────────────────────────────────────────────
+1. Criar Dockerfile na raiz do projeto
+2. Build: docker build -t minha-api .
+3. Run: docker run -d -p 5000:5000 --name api-container minha-api
+4. Testar: http://localhost:5000
+5. Ver logs: docker logs api-container
+6. Parar: docker stop api-container
+7. Remover: docker rm api-container
+
+
+PRÓXIMOS NÍVEIS
+─────────────────────────────────────────────────────────────
+• Docker Compose: orquestrar múltiplos contentores
+• Multi-stage builds: otimizar tamanho da imagem
+• Volumes: persistir dados fora do contentor
+• Networks: comunicação entre contentores
+• Docker Hub: partilhar imagens
+• Gunicorn: servidor WSGI para produção
