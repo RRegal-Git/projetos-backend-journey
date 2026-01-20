@@ -5,23 +5,31 @@
 - `↑↓` – histórico de comandos usados anteriormente.
 - `clear` – limpar o ecrã do terminal.
 - `Ctrl+C` – parar servidor ou script que está a correr.
+- `q` – sair de git diff, git log, man pages.
 
 ## 📂 Navegação
 - `cd <pasta>` – mudar de diretório.
 - `cd ~` – ir para o diretório home (raiz do utilizador).
 - `pwd` – mostrar o caminho da pasta atual.
 - `ls` – listar ficheiros da pasta atual.
+- `ls -la` – listar tudo incluindo ocultos com permissões.
 - `wsl` – abrir Ubuntu a partir do PowerShell Windows.
 
 ## 📄 Gestão de Ficheiros
 - `mkdir <nome>` – criar diretório (pasta).
 - `touch <nome>` – criar ficheiro vazio.
 - `code .` – abrir VS Code na pasta atual.
+- `nano ficheiro` – editor de texto simples (Ctrl+O para guardar, Ctrl+X para sair).
 - `cat ficheiro` – ler conteúdo no terminal.
+- `head -n 5 ficheiro` – ver primeiras 5 linhas.
+- `tail -n 10 ficheiro` – ver últimas 10 linhas.
+- `grep "palavra" ficheiro` – procurar texto num ficheiro.
+- `grep -n "texto" ficheiro` – procurar com números de linha.
 - `echo "texto" >> ficheiro` – adicionar texto ao final de um ficheiro.
 - `cp origem destino` – copiar ficheiro.
 - `mv origem destino` – mover ou renomear ficheiro.
 - `rm ficheiro` – apagar ficheiro (cuidado: não vai para a reciclagem!).
+- `rm -rf pasta/` – apagar pasta e conteúdo (use com extremo cuidado!).
 
 ## 🐍 Python & Ambiente
 - `python3 ficheiro.py` – correr script Python.
@@ -31,16 +39,25 @@
 
 ## 📦 Pacotes (Pip)
 - `pip install nome_pacote` – instalar biblioteca (ex: Flask).
-- `pip freeze > requirements.txt` – gerar lista de dependências instaladas ("congelar" versões).
 - `pip install -r requirements.txt` – instalar dependências a partir de um ficheiro.
+- `pip freeze > requirements.txt` – gerar lista de dependências instaladas ("congelar" versões).
+- `pip list` – listar pacotes instalados.
+- `pip uninstall nome_pacote` – desinstalar pacote.
 
 ## 🐙 Git & GitHub
 - `git init` – iniciar repositório novo.
 - `git status` – ver o que mudou.
+- `git diff` – ver diferenças em detalhe (sair com 'q').
 - `git add .` – preparar tudo para guardar.
+- `git add ficheiro.py` – preparar ficheiro específico.
 - `git commit -m "msg"` – gravar snapshot (histórico).
 - `git push` – enviar alterações para o GitHub.
+- `git push origin main` – push para branch main.
+- `git pull` – buscar atualizações do remoto.
 - `git log --oneline` – ver histórico de commits resumido.
+- `git reset --soft HEAD~1` – desfazer último commit (mantém alterações).
+- `git checkout -b nome-branch` – criar nova branch.
+- `git checkout main` – mudar para branch main.
 - `.gitignore` – ficheiro que lista o que o Git deve ignorar (ex: `venv/`).
 - `git rm -r --cached pasta` – parar de versionar uma pasta sem a apagar do PC.
 - `git config --global credential.helper store` – guardar password/token para sempre.
@@ -55,9 +72,13 @@
   - `201 Created` (Criado com sucesso).
   - `404 Not Found` (Não encontrado).
   - `415 Unsupported Media Type` (Falta header Content-Type: application/json).
+  - `500 Internal Server Error` (Erro no servidor).
 
 ## 🧪 Testes (Curl & Postman)
 - `curl -i URL` – teste rápido GET no terminal.
+- `curl -X POST URL -H "Content-Type: application/json" -d '{"key":"value"}'` – POST com JSON.
+- `curl -X PUT URL -H "Content-Type: application/json" -d '{"key":"value"}'` – PUT.
+- `curl -X DELETE URL` – DELETE.
 - `/health` – rota comum para verificar se API está viva.
 
 
@@ -104,6 +125,7 @@ Ver todos os contentores:
 
 Ver logs:
   docker logs <container_id>
+  docker logs -f <container_id>  # Logs em tempo real
 
 Parar contentor:
   docker stop <container_id>
@@ -113,6 +135,12 @@ Remover contentor:
 
 Remover imagem:
   docker rmi <image_id>
+
+Executar comando dentro do contentor:
+  docker exec -it <container_id> bash
+
+Limpar tudo (cuidado!):
+  docker system prune -af
 
 
 FLASK + DOCKER - CONFIGURAÇÃO CRÍTICA
@@ -176,7 +204,7 @@ Ferramenta para definir e correr aplicações multi-contentor
 usando ficheiros YAML. Um comando gere todo o ciclo de vida.
 
 
-ESTRUTURA docker-compose.yml
+ESTRUTURA docker-compose.yml BASE
 ─────────────────────────────────────────────────────────────
 version: '3.8'
 
@@ -191,16 +219,53 @@ services:
     restart: unless-stopped
 
 
+ESTRUTURA COM POSTGRESQL
+─────────────────────────────────────────────────────────────
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: projeto1-flask-web
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:senha@db:5432/tarefas_db
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    container_name: projeto1-flask-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=senha
+      - POSTGRES_DB=tarefas_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+
 COMANDOS ESSENCIAIS
 ─────────────────────────────────────────────────────────────
 docker compose up              Build + criar + iniciar (foreground)
 docker compose up -d           Correr em background (detached)
-docker compose down            Parar e remover contentores
-docker compose logs -f         Ver logs em tempo real
-docker compose ps              Ver status dos serviços
 docker compose up --build      Rebuild após mudanças no código
+docker compose down            Parar e remover contentores
+docker compose down -v         Parar e remover contentores + volumes (limpa BD!)
+docker compose logs -f         Ver logs em tempo real
+docker compose logs -f web     Ver logs apenas do serviço web
+docker compose ps              Ver status dos serviços
 docker compose restart         Reiniciar serviços
+docker compose restart web     Reiniciar apenas serviço web
 docker compose stop            Parar sem remover
+docker compose exec web bash   Executar comando no contentor
 
 
 ESTRUTURA .dockerignore
@@ -209,6 +274,7 @@ ESTRUTURA .dockerignore
 __pycache__/
 *.pyc
 venv/
+*.db
 
 # IDE
 .vscode/
@@ -220,6 +286,7 @@ venv/
 
 # Docker
 docker-compose.yml
+Dockerfile
 
 
 VANTAGENS
@@ -229,6 +296,7 @@ VANTAGENS
 • Networks automáticas entre serviços
 • Fácil adicionar serviços (DB, Redis, etc)
 • Ambiente reproduzível em qualquer máquina
+• Volumes geridos automaticamente
 
 
 COMPARAÇÃO: docker run vs docker compose
@@ -240,12 +308,88 @@ ANTES (docker run):
   docker logs minha-api
 
 AGORA (docker compose):
-  docker compose up
+  docker compose up -d
+  docker compose ps
+  docker compose logs -f
+
+
+TROUBLESHOOTING COMUM
+─────────────────────────────────────────────────────────────
+• "port already in use": Parar outros serviços na mesma porta
+• "database does not exist": Verificar POSTGRES_DB no docker-compose.yml
+• "404 Not Found" na API: Verificar se db.create_all() está no if __name__
+• Mudanças não aplicadas: Usar docker compose up --build
+• BD vazia após restart: Não usar down -v (apaga volumes!)
+
+
+═══════════════════════════════════════════════════════════════
+🗄️ POSTGRESQL - BASE DE DADOS
+═══════════════════════════════════════════════════════════════
+
+ACESSO À BD (DENTRO DO CONTENTOR)
+─────────────────────────────────────────────────────────────
+# Entrar no contentor
+docker exec -it projeto1-flask-db psql -U postgres -d tarefas_db
+
+# Comandos SQL úteis
+\l                    # Listar bases de dados
+\dt                   # Listar tabelas
+\d tarefas            # Ver estrutura da tabela tarefas
+\du                   # Listar utilizadores
+\q                    # Sair do psql
+
+# Queries básicas
+SELECT * FROM tarefas;
+SELECT * FROM tarefas WHERE concluida = true;
+DELETE FROM tarefas WHERE id = 1;
+DROP TABLE tarefas;   # Cuidado!
+
+
+REDE & DIAGNÓSTICO
+─────────────────────────────────────────────────────────────
+# Ver IP do WSL (para Postman no Windows)
+hostname -I
+
+# Ver portas em uso
+netstat -tuln | grep 5000
+lsof -i :5000
+
+# Testar conexão à BD
+docker compose exec db psql -U postgres -c "SELECT version();"
+
+
+ATALHOS BASH (ADICIONAR AO ~/.bashrc)
+─────────────────────────────────────────────────────────────
+# Git rápido
+alias gs='git status'
+alias ga='git add .'
+alias gc='git commit -m'
+alias gp='git push'
+alias gl='git log --oneline'
+
+# Docker rápido
+alias dps='docker ps'
+alias dcu='docker compose up'
+alias dcud='docker compose up -d'
+alias dcd='docker compose down'
+alias dcl='docker compose logs -f'
+alias dcb='docker compose up --build'
+
+# Navegação
+alias proj='cd ~/projetos'
+alias flask1='cd ~/projetos/projeto1_flask'
+alias ll='ls -lah'
+alias ..='cd ..'
+
+# Aplicar mudanças ao .bashrc
+source ~/.bashrc
 
 
 PRÓXIMOS PASSOS
 ─────────────────────────────────────────────────────────────
-• Adicionar PostgreSQL ao docker-compose.yml
-• Configurar volumes para persistência
 • Environment variables por ficheiro .env
 • Health checks nos serviços
+• Migrations com Alembic/Flask-Migrate
+• Backup automático da BD
+• Deploy (Render, Railway, Heroku)
+• CI/CD com GitHub Actions

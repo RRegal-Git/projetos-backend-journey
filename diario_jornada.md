@@ -3,14 +3,17 @@ DIÁRIO DE JORNADA – BACKEND/DATA
 ═══════════════════════════════════════════════════════════════
 
 
+
 09/01/2026 – DIA 1 | Configuração de Ambiente
 ─────────────────────────────────────────────────────────────
 Duração: ~1h (primeira sessão longa)
+
 
 Setup Inicial:
 • Instalei WSL2 + Ubuntu (utilizador: regal)
 • Instalei VS Code + extensão WSL
 • Aprendi comandos básicos: cd ~, pwd, mkdir, ls, touch
+
 
 Estrutura Criada:
 • ~/projetos/teste_terminal
@@ -18,118 +21,148 @@ Estrutura Criada:
 • diario_jornada.md
 • notas.txt
 
+
 Aprendizagens:
 • Erros comuns: cd~ (precisa espaço), caminhos absolutos vs relativos
 • Sincronização terminal ↔ VS Code funcionando
 
+
 Estado: ✅ WSL + VS Code + estrutura de projetos pronta
+
 
 
 09/01/2026 – DIA 2 | Git & GitHub
 ─────────────────────────────────────────────────────────────
 Duração: ~2h30 (GitHub levou mais tempo)
 
+
 Comandos Novos:
 • cat, cp, mv, rm, echo >>
+
 
 Python:
 • Criei e corri hello.py
 • Python funcionando ✅
+
 
 Git Completo:
 • Workflow: init → commit → remote → push
 • Primeiro repo público criado
 • Resolvido problema clipboard (migrei para Windows Terminal)
 
+
 Repositório:
 https://github.com/RRegal-Git/projetos-backend-journey
 
+
 Estado: ✅ Linux + Python + GitHub funcionais
+
 
 
 09/01/2026 – DIA 3 | Primeira API Flask
 ─────────────────────────────────────────────────────────────
 Duração: 50min
 
+
 Projeto1: API Flask Funcional:
 • Criado ambiente virtual: python3 -m venv venv
 • Endpoints implementados: / e /hello
 • Testado localmente com sucesso
 
+
 Repositório:
 https://github.com/RRegal-Git/projeto1_flask
 
+
 Estado: ✅ API REST Python | Portfólio +1 projeto
+
 
 
 10/01/2026 – DIA 4 | Limpeza e Melhorias
 ─────────────────────────────────────────────────────────────
 Duração: ~45min
 
+
 Limpeza do Repositório:
 • Removi venv/ do GitHub (ambiente local não deve ser versionado)
 • Comando usado: git rm -r --cached venv
 • Adicionei .gitignore para evitar repetição
+
 
 Melhorias na API:
 • Endpoint GET /health para status checks
 • Error handler 404 personalizado (retorna JSON)
 • Testado com curl -i
 
+
 Aprendizagens:
 • Diferença entre remover do Git vs remover do disco
 • Boas práticas de versionamento
 
+
 Estado: ✅ Repositório limpo e API profissionalizada
+
 
 
 11/01/2026 – DIA 5 | POST e Comunicação Bidirecional
 ─────────────────────────────────────────────────────────────
 Duração: 30min (domingo)
 
+
 Conceitos Aprendidos:
 • Diferença entre GET (ler) e POST (enviar)
 • Headers HTTP (Content-Type: application/json)
+
 
 Implementação:
 • Endpoint POST /echo criado
 • Recebe JSON com nome e nivel
 • Testado com curl -X POST
 
+
 Erro Resolvido:
 • 415 Unsupported Media Type (typo no Content-Type)
 
+
 Estado: ✅ API já sabe conversar (recebe e responde)
+
 
 
 12/01/2026 – DIA 6 | Ferramentas Profissionais
 ─────────────────────────────────────────────────────────────
 Duração: ~40min
 
+
 Postman Setup:
 • Instalei Postman no Windows (ligado ao WSL)
 • Workspace criado: "Jornada Backend"
 • Collection criada: "Projeto 1"
+
 
 Testes Realizados:
 • GET /health → 200 OK ✅
 • POST /echo → 200 OK ✅
 • Aprendi erro 405 Method Not Allowed (GET num endpoint POST)
 
+
 Estado: ✅ Ambiente de testes profissional pronto
+
 
 
 13/01/2026 – DIA 7 | Persistência em Memória (CRUD - Parte 1)
 ─────────────────────────────────────────────────────────────
 Duração: ~50min
 
+
 Conceito Central:
 • Persistência de dados em memória RAM (lista global)
+
 
 Implementação:
 • Lista global: tarefas = []
 • GET /tarefas → Listar todas
 • POST /tarefas → Criar nova (append + 201 Created)
+
 
 Fluxo Testado no Postman:
 1. GET inicial → []
@@ -137,45 +170,56 @@ Fluxo Testado no Postman:
 3. POST Tarefa 2
 4. GET final → [Tarefa1, Tarefa2]
 
+
 Aprendizagem Crítica:
 • Dados persistem enquanto servidor corre
 • Dados perdem-se ao reiniciar (RAM é volátil)
 
+
 Estado: ✅ CRUD parcial (Create + Read)
+
 
 
 15/01/2026 – DIA 8 | Read by ID (CRUD - Parte 2)
 ─────────────────────────────────────────────────────────────
 Duração: ~45min
 
+
 Objetivo:
 Ler UMA tarefa específica pelo seu ID
+
 
 Conceitos Aprendidos:
 • Path Parameters no Flask: <int:id>
 • Conversão automática de tipos (string → int)
+
 
 Implementação:
 • Rota: GET /tarefas/<int:id>
 • Lógica: Loop for para encontrar ID
 • Tratamento de erro: 404 se não encontrado
 
+
 Debugging:
 • Erro 404 inicial resolvido
 • Aprendi a verificar tipos de dados (int vs string)
 • Importância de reiniciar servidor após mudanças
 
+
 Estado: ✅ CRUD avançado (Create, Read, Read by ID)
+
 
 
 15/01/2026 – DIA 9 | CRUD Completo + Requirements
 ─────────────────────────────────────────────────────────────
 Duração: ~1h
 
+
 CRUD Finalizado:
 • PUT /tarefas/<id> → Atualizar tarefa existente
 • DELETE /tarefas/<id> → Remover tarefa
 • Aprendi list comprehension: [t for t in tarefas if t['id'] != id]
+
 
 Teste de Fogo no Postman:
 1. POST → Criar
@@ -185,20 +229,25 @@ Teste de Fogo no Postman:
 5. DELETE /<id> → Apagar
 ✅ Ciclo completo validado
 
+
 Gestão de Dependências:
 • pip freeze > requirements.txt
 • "Congelamento" de versões (Flask==3.0.3)
 • Garante reprodutibilidade do ambiente
 
+
 Estado: ✅ CRUD 100% funcional | Preparado para Docker
+
 
 
 18/01/2026 – DIA 10 | Docker - Containerização
 ─────────────────────────────────────────────────────────────
 Duração: 20min (00h30-00h50)
 
+
 Objetivo:
 Containerizar a aplicação Flask para ambiente portável
+
 
 Validação:
 • Dockerfile existente verificado:
@@ -208,15 +257,18 @@ Validação:
   - CMD ["python", "app.py"]
 • app.py configurado: host='0.0.0.0' (essencial para Docker)
 
+
 Resolução de Problemas:
 • Docker não reconhecido no WSL
 • Solução: wsl --shutdown + restart terminal
 • Integração WSL confirmada no Docker Desktop
 
+
 Build e Teste:
 • docker build -t projeto1-flask . → 9.2s (sucesso)
 • docker run -p 5000:5000 projeto1-flask → API acessível
 • Testado localhost:5000 no Windows ✅
+
 
 Comandos Dominados:
 • docker build -t nome-imagem .
@@ -226,45 +278,25 @@ Comandos Dominados:
 • docker stop <container_id>
 • docker rm <container_id>
 
+
 Próximos Passos:
 • Docker Compose para multi-contentores
 • Multi-stage builds para otimização
 • Gunicorn para production-ready
 
+
 Estado: ✅ Aplicação containerizada | Ambiente reproduzível
 
-
-═══════════════════════════════════════════════════════════════
-PROGRESSO GERAL
-═══════════════════════════════════════════════════════════════
-
-Tempo Total Investido: ~9h30
-Repositórios Criados: 2
-  • projetos-backend-journey (diário + bíblia)
-  • projeto1_flask (API CRUD completa)
-
-Skills Desbloqueadas:
-✅ Linux/WSL2 (navegação, gestão ficheiros)
-✅ Python (virtualenv, scripts)
-✅ Git & GitHub (workflow completo)
-✅ Flask (API REST, CRUD, JSON)
-✅ HTTP (métodos, status codes, headers)
-✅ Postman (testes profissionais)
-✅ Docker (containerização, imagens, contentores)
-
-Próximas Metas:
-• Docker Compose
-• Base de dados (PostgreSQL/SQLite)
-• Autenticação (JWT)
-• Deploy (Render/Railway)
 
 
 19/01/2026 – DIA 11 | Docker Compose - Orquestração
 ─────────────────────────────────────────────────────────────
 Duração: 35min (23h20-23h55)
 
+
 Objetivo:
 Simplificar gestão de contentores com Docker Compose
+
 
 Implementação:
 • Criado .dockerignore para otimizar builds
@@ -278,6 +310,7 @@ Implementação:
   - Restart policy: unless-stopped
   - Network criada automaticamente
 
+
 Comandos Dominados:
 • docker compose up → Build + start tudo
 • docker compose up -d → Background mode
@@ -286,14 +319,143 @@ Comandos Dominados:
 • docker compose ps → Ver status dos serviços
 • docker compose up --build → Rebuild após mudanças
 
+
 Resolução de Problemas:
 • Docker não reconhecido no WSL após reinício
 • Solução: wsl --shutdown + restart terminal
 
+
 Vantagem Principal:
 Substituir 4+ comandos docker por apenas: docker compose up
 
+
 Estado: ✅ Orquestração funcional | Preparado para multi-contentores
+
+
+
+20/01/2026 – DIA 12 | PostgreSQL + Debugging Intensivo
+─────────────────────────────────────────────────────────────
+Duração: ~2h50 (21h00-23h50)
+
+
+Objetivo:
+Integrar PostgreSQL ao projeto Flask e resolver bugs críticos
+
+
+Implementação:
+• Adicionado PostgreSQL ao docker-compose.yml:
+  - Imagem: postgres:15-alpine
+  - Volumes para persistência de dados
+  - Environment variables (USER, PASSWORD, DB)
+  - depends_on para ordem de inicialização
+
+• Migração de lista em memória para SQLAlchemy ORM:
+  - Modelo Tarefa com id, titulo, concluida
+  - Método to_dict() para serialização JSON
+  - Database URL via variável de ambiente
+
+
+Debugging Crítico (Bug 404):
+• Problema: 404 Not Found em TODAS as rotas /tarefas
+• Hipóteses testadas:
+  1. Routes mal definidas → ✅ Verificado com grep -n
+  2. Docker cache → ✅ Rebuild forçado
+  3. Network issues → ✅ Testado com curl direto no WSL
+  
+• Causa raiz: db.create_all() FORA do if __name__
+  - Flask crashava antes de registar as rotas
+  - Nenhum log de erro aparecia
+  
+• Solução: Mover db.create_all() para DENTRO do bloco condicional
+
+
+Networking WSL + Windows:
+• localhost não funcionava no Postman
+• Descoberta: Windows e WSL têm stacks de rede separados
+• Solução: hostname -I → 172.18.180.148
+• Postman configurado com IP do WSL
+
+
+Refatoração Completa do Código:
+• Reorganizado em 8 secções com separadores visuais
+• Adicionadas docstrings em todas as funções
+• Melhorada validação no POST /tarefas (titulo obrigatório)
+• Comentários mais eficazes e objetivos
+
+
+Git Workflow:
+• git diff para verificar mudanças (sair com 'q')
+• git add ficheiros específicos (app.py, docker-compose.yml, requirements.txt)
+• Problema com mensagem multilinha e caracteres especiais
+• Solução: Mensagem curta sem emojis
+• git push origin main → Sucesso ✅
+
+
+Comandos Novos Aprendidos:
+• grep -n "pattern" ficheiro → Procurar com números de linha
+• hostname -I → Ver IP do WSL
+• docker compose down -v → Apagar volumes (cuidado!)
+• docker system prune -af → Limpar tudo
+• curl -X POST com headers e JSON completo
+
+
+Testes Completos:
+• curl no terminal → ✅ Funcionou (201 Created)
+• Postman com IP WSL → ✅ Funcionou (201 Created)
+• CRUD completo validado no PostgreSQL
+• Dados persistem entre restarts (volumes funcionando)
+
+
+Aprendizagens Críticas:
+• Debugging é 90% sobre ordem de execução
+• Isolar variáveis: testar curl antes do Postman
+• docker compose down -v APAGA DADOS (usar apenas down)
+• Git: evitar mensagens complexas, emojis e parênteses
+
+
+Problemas Resolvidos:
+1. 404 em todas as rotas → db.create_all() no lugar errado
+2. Postman não conectava → Usar IP do WSL (172.x.x.x)
+3. Git commit com erro → Aspas duplicadas removidas
+4. Preso no editor Git → Ctrl+C para sair
+
+
+Estado: ✅ PostgreSQL integrado | CRUD funcional | Código profissional | Git atualizado
+
+
+
+
+═══════════════════════════════════════════════════════════════
+PROGRESSO GERAL
+═══════════════════════════════════════════════════════════════
+
+
+Tempo Total Investido: ~12h20
+Repositórios Criados: 2
+  • projetos-backend-journey (diário + bíblia)
+  • projeto1_flask (API CRUD completa com PostgreSQL)
+
+
+Skills Desbloqueadas:
+✅ Linux/WSL2 (navegação, gestão ficheiros, grep, networking)
+✅ Python (virtualenv, scripts, SQLAlchemy ORM)
+✅ Git & GitHub (workflow completo, resolução de conflitos)
+✅ Flask (API REST, CRUD, JSON, error handling, docstrings)
+✅ HTTP (métodos, status codes, headers)
+✅ Postman (testes profissionais, headers customizados)
+✅ Docker (containerização, imagens, contentores)
+✅ Docker Compose (orquestração multi-container)
+✅ PostgreSQL (setup, volumes, queries básicas)
+✅ Debugging (sistemático, isolamento de variáveis)
+
+
+Próximas Metas:
+• README.md profissional para o projeto
+• Testes automatizados (pytest)
+• Autenticação (JWT)
+• Paginação no GET /tarefas
+• Deploy (Render/Railway/Heroku)
+• CI/CD com GitHub Actions
 
 
 
